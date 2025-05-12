@@ -6,7 +6,7 @@
     </div>
     <ul class="list-disc ml-5">
       <li v-for="file in files" :key="file.name">
-        <a :href="file.url" target="_blank" class="text-blue-600 hover:underline">
+        <a :href="file.name" target="_blank" class="text-blue-600 hover:underline">
           {{ file.name }}
         </a>
       </li>
