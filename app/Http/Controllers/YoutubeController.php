@@ -33,7 +33,7 @@ class YoutubeController extends Controller
         /* ---------- ④ 組 yt-dlp 命令 ---------- */
         if ($format === 'mp3') {
             $cmd = sprintf(
-                'yt-dlp -x --audio-format mp3 --path %s %s %s',
+                'yt-dlp -x --audio-format mp3 --path %s %s --restrict-filenames %s',
                 $output_dir,
                 $section,
                 escapeshellarg($url)
@@ -49,7 +49,7 @@ class YoutubeController extends Controller
             // 注意：--recode-video mp4 會在需要時才啟動轉碼
             $cmd = sprintf(
                 'yt-dlp -f "%s / bv+ba/b" ' .
-                '--merge-output-format mp4 --recode-video mp4 --path %s %s %s',
+                '--merge-output-format mp4 --recode-video mp4 --path %s %s --restrict-filenames %s',
                 $selectAvc,
                 $output_dir,
                 $section,
