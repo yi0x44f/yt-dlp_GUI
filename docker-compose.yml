@@ -1,0 +1,30 @@
+services:
+  app:
+    build: .
+    image: my-laravel:prod
+    environment:
+      APP_ENV: production
+      APP_DEBUG: "true"
+    command: >
+      sh -c "
+        chown -R www-data:www-data storage bootstrap/cache &&
+        php-fpm
+      "
+    volumes:
+      - storage-data:/var/www/storage
+      # - .:/var/www   # ← 若你要開發用再打開
+
+  web:
+    image: nginx:1.25-alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+      - storage-data:/var/www/storage
+      - .:/var/www:ro
+    depends_on:
+      - app
+    
+
+volumes:
+  storage-data:
